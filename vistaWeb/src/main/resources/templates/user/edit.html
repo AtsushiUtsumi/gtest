@@ -1,0 +1,18 @@
+<html th:object=${user2}>
+
+<body th:replace="~{user/detail :: body(${user}, ~{this::searchParams}, ~{this::searchResults})}">
+    <div th:fragment="searchParams">
+        <h6>検索条件B</h6>
+        <input th:field="*{userId}">
+        <table>
+            <tr><td th:text="*{userId}"></td></tr>
+            <tr><td th:text="*{userId}"></td></tr>
+        </table>
+    </div>
+    <div th:fragment="searchResults">
+        <h6>検索結果B</h6>
+        <input th:field="*{userName}">
+    </div>
+</body>
+
+</html>

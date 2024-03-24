@@ -1,0 +1,35 @@
+<div id="fragment1" th:fragment="template1()">
+    <span>template1に置き換えられている
+    </span>
+</div>
+
+<div id="fragment2" th:fragment="template2(text)">
+    引数も渡せます
+    <span th:text="${text}"></span>
+</div>
+
+<select id="pullDown" th:fragment="pullDown(value)">
+    <option th:value="${value}" th:text="${value} + ${value}"></option>
+    <option value="dog">Dog</option>
+    <option value="cat">Cat</option>
+    <option value="hamster">Hamster</option>
+    <option value="parrot">Parrot</option>
+    <option value="spider">Spider</option>
+    <option value="goldfish">Goldfish</option>
+    <script type="text/javascript" th:inline="text">
+        function hoge(){
+            alert(document.getElementById("[[${value}]]").value);
+            alert(document.getElementById('pullDown').value);
+        }
+        document.getElementById('pullDown').onchange = hoge;
+    </script>
+</select>
+
+<select id="pullDown" th:fragment="pullDown2(value)">
+    <option th:value="${value}" th:text="${@pullDown.createMap().size()}"></option>
+
+</select>
+<select id="pullDown" th:fragment="pullDown2(value)">
+    <option th:each="x : ${@pullDown.createMap()}" th:value="${x.key}" th:text="${x.value}"></option>
+
+</select>

@@ -1,0 +1,12 @@
+<body th:fragment="body(formObject, searchParams, searchResults)">
+    <meta content="text/html; charset=UTF-8" />
+    <th:block th:if="${searchParams != null}" th:replace="${searchParams}"></th:block>
+    
+    <table>
+        <tr><th>このあたりにページネーションを入れる</th><td th:text="${formObject.userId}"></td></tr>
+    </table>
+    <table th:object="${formObject}">
+        <tr><th>ここでの「th:object」は「formObject」</th><td th:text="*{userId}"></td></tr>
+    </table>
+    <th:block th:if="${searchResults != null}" th:replace="${searchResults}"></th:block>
+</body>

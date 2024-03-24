@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+  <title>Jspreadsheet Example</title>
+</head>
+
+<body>
+  <p>dataJson</p>
+  <input type="text" id="text" name="dataJson" th:value="*{dataJson}"/>
+  <div th:fragment="fuga(expression, tableId)" th:inline="text">
+  <div th:id="__${tableId}__" />
+  <script src="https://bossanova.uk/jspreadsheet/v4/jexcel.js"></script>
+  <script src="https://jsuites.net/v4/jsuites.js"></script>
+  <link rel="stylesheet" href="https://jsuites.net/v4/jsuites.css" type="text/css">
+  <link rel="stylesheet" href="https://bossanova.uk/jspreadsheet/v4/jexcel.css" type="text/css">
+  <script type="text/javascript">
+    alert('[[__${expression}__]]');// プリレンダリング時に置き換え。ここで名前が出て欲しい
+    //alert('[[${tableId}]]');// JSはレンダリング時でいいので「__」で囲う必要がない
+    const myTable = jspreadsheet(document.getElementById('[[__${tableId}__]]'), {
+      data: [
+        ['現預金', '2022/10/24', '文房具', 420],
+        ['長期貸付金', '2022/10/26', '外食費', -1300]
+      ],
+      columns: [
+        { type: 'text', title: '行', width: 100 },
+        { type: 'calendar', title: '日付', width: 120, options: { format: 'YYYY/MM/DD' } },
+        { type: 'text', title: '項目', width: 300 },
+        { type: 'numeric', title: '出金', width: 200, mask: '#,##' },
+      ],
+      onchange: function (instance, cell, x, y, value) {
+        const data = myTable.getData();
+        alert(JSON.stringify(data));
+        document.getElementById('');
+      },
+      updateTable: function (instance, cell, col, row, val, label, cellName) {
+        if (col === 3 && parseInt(val) < 0) {
+          cell.style.backgroundColor = 'red';
+        } else {
+          cell.style.backgroundColor = '';
+        }
+      },
+      allowComments: false,
+      allowInsertColumn: false,
+      allowInsertRow: false,
+      allowManualInsertColumn: false,
+      allowManualInsertRow: false,
+      allowDeleteColumn: false,
+      allowDeleteRow: false,
+      nestedHeaders: [
+        [
+          { title: '', colspan: '3' },
+          { title: 'ヘッダ2', colspan: '1' },
+        ],
+        [
+          { title: '勘定科目' },
+          { title: '日付' },
+          { title: '項目' },
+          { title: '出金' },
+        ]
+      ]
+    });
+  </script>
+  </div>
+</body>
+
+</html>

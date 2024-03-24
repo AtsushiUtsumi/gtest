@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>フラグメントで皆の役に立ちたい!</title>
+</head>
+<body>
+    <form action="/" method="post" th:object="${form}" >
+        <div th:insert="~{sheet::fuga('*{name}', テーブルID)}" />
+        <p>name</p>
+        <input type="text" id="name" name="name" th:value="*{name}"/>
+        <p>text</p>
+        <input type="text" id="text" name="text" th:value="*{text}"/>
+        <br/>
+        <input type="submit" value="submit"/>
+      </form>
+    <p>このなかでから生成したプルダウンをimportしたい</p>
+    <div th:insert="~{fragment::pullDown(pullDown)}"></div>
+    <div id="hogehoge" th:insert="~{fragment::template1()}"></div>
+    <div id="fugafuga" th:insert="~{fragment::template2(せやな)}"></div>
+    <div id="置き換えられるのでこのidは飾り" th:replace="~{fragment::template2(IDは飾りですよ)}"></div>
+</body>
+</html>
